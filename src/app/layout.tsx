@@ -1,29 +1,11 @@
 "use client";
-
-import "./globals.css";
-import { darkTheme, lightTheme } from "@/styles/theme";
-
-import {
-    ThemeProvider,
-    CssBaseline,
-    Switch,
-    FormControlLabel,
-} from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import Font from "@next/font";
 
 export default function RootLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    let [useDarkTheme, setUseDarkTheme] = useState(false);
-    let [theme, setTheme] = useState(useDarkTheme ? darkTheme : lightTheme);
-
-    const changeThemeHandler = (target: ChangeEvent, currentValue: boolean) => {
-        setUseDarkTheme(currentValue);
-        setTheme(currentValue ? darkTheme : lightTheme);
-    };
-
     return (
         <html lang="en">
             <head>
@@ -38,25 +20,7 @@ export default function RootLayout({
                 />
                 <link rel="icon" href="/favicon.ico" />
             </head>
-            <ThemeProvider theme={theme}>
-                <body id="__next">
-                    <CssBaseline />
-                    <FormControlLabel
-                        control={
-                            <Switch
-                                checked={useDarkTheme}
-                                inputProps={{ "aria-label": "Dark Mode" }}
-                                onChange={(target, value) =>
-                                    changeThemeHandler(target, value)
-                                }
-                            ></Switch>
-                        }
-                        label="Dark Mode"
-                        labelPlacement="start"
-                    />
-                    {children}
-                </body>
-            </ThemeProvider>
+            <body>{children}</body>
         </html>
     );
 }
